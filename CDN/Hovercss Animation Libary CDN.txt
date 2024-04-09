@@ -1,0 +1,18 @@
+ <div>
+      <figure class="imghvr-reveal-up">
+        <img src="src/img/adidas-shoes.jpeg" alt="" />
+        <figcaption>
+          <h1>Header</h1>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. In ratione
+            tempora ipsa doloribus modi maxime tempore, sed neque facilis
+            incidunt expedita, repellat consequatur laudantium accusantium eaque
+            officiis necessitatibus at odit.
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ Burda umumi class birbasa figure tagine verilir amma content figurecaption taginde yazilir
+
+veya githup da imagehover.css faylini yukle ve orda istediyin configurasiyalari et

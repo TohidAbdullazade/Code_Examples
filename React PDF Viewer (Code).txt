@@ -1,0 +1,79 @@
+import React, { useState } from "react";
+import { Typography } from "antd";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
+
+const PDF_File_Viewer = () => {
+  const [pdfFile, setPdfFile] = useState(null);
+  const [veiwPdf, setViewPdf] = useState(null);
+
+  const fileType = ["application/pdf"];
+  const handleChange = (e) => {
+    let selectedFile = e.target.files[0];
+    if (selectedFile) {
+      if (selectedFile && fileType.includes(selectedFile.type)) {
+        console.log(selectedFile.type)
+        let reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onload = (e) => {
+          setPdfFile(e.target.result);
+        };
+      } else {
+        setPdfFile(null);
+      }
+    } else {
+      console.log("Please Select");
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (pdfFile !== null) {
+      setViewPdf(pdfFile);
+    } else {
+      setViewPdf(null);
+    }
+  };
+const newPlugin = defaultLayoutPlugin();
+  return (
+    <>
+      <div>
+        <form
+          className="file-area m-2.5 bg-slate-100 p-2.5 rounded-md"
+          onSubmit={handleSubmit}
+        >
+          <input
+            type="file"
+            name="file"
+            className="font-mono "
+            onChange={handleChange}
+          />
+          <button type="submit" className="bg-green-600 p-1 text-sm text-gray-300 rounded-md hover:text-white">
+            Submit
+          </button>
+        </form>
+        <div className="title text-center">
+          <Typography.Title>PDF File</Typography.Title>
+        </div>
+        <div
+          className="pdf-container w-full flex justify-center items-center overflow-y-auto"
+          style={{ height: 900 }}
+        >
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+            {
+                veiwPdf && <>
+                
+                    <Viewer fileUrl={veiwPdf} plugins={[newPlugin]}/>
+
+                </>}
+                {!veiwPdf && <>NO PDF</>}
+
+            </Worker>;
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PDF_File_Viewer;

@@ -1,0 +1,21 @@
+    1xx Kodlari - Informasiya:
+        100 - Davam edin: Istifadecinin muracietini davam etmesini gosterir.
+        101 - Protokol deyisikliyi: Istifadeciy? diger bir protokola deyismeye davam etmesini gosterir.
+
+    2xx Kodlari - Ugurlu cavab:
+        200 - OK: Muraciet ugurla icra olundu.
+        201 - Yaradildi: Yeni mezmun ugurla yaradildi.
+        204 - Mezmun yoxdur: Melumat yoxdur, amma muraciet ugurla basa catdi.
+
+    3xx Kodlari - Yonlendirme:
+        301 - Moved Permanently: Muraciet daimi olaraq yeni bir URL-e yonlendirildi.
+        302 - Found: Muraciet muveffeqiyyetle basa catdi, lakin muveqqeti olaraq basqa bir URL-e yonlendirilir.
+
+    4xx Kodlari - Client sehvi:
+        400 - Bad Request: Istifadecinin gonderdiyi muraciet sehvdir.
+        403 - Forbidden: Istifadecinin muracieti icra etmek ucun icazesi yoxdur.
+        404 - Not Found: Istenilen sened tapilmadi.
+
+    5xx Kodlari - Server sehvi:
+        500 - Internal Server Error: Serverin muracieti islederken bir daxili sehv bas verdi.
+        503 - Service Unavailable: Server melumati islemek ucun movcud deyil ve ya cox yukludur.

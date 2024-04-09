@@ -1,0 +1,17 @@
+section>img {
+    animation: fade linear;
+    animation-timeline: view(150px);
+}
+
+@keyframes fade {
+    from {
+        scale: 0;
+        opacity: 0;
+    }
+
+    to {
+        scale: 1;
+        opacity: 1;
+
+    }
+}

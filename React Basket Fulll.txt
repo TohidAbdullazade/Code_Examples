@@ -1,0 +1,140 @@
+ // ===> SET PRODUCTS TO BASKET <===
+  const AddToCard = (id, title, images, price) => {
+    const existingProductIndex = basket.findIndex(
+      (item) => item.productId === id
+    );
+    if (existingProductIndex !== -1) {
+      toast.info(`${title} is already in your cart but the count has increased !`, {
+        position: "top-center",
+        autoClose: 3000,
+        draggable: true,
+        pauseOnHover: true,
+        closeButton: true,
+        style:{writingMode:"revert",width:500}
+        
+      });
+      // ===> IF THE PRODUCT IS EXIST IN YOUR CARD ONLY THE COUNT INCREASE AND SET IT TO LOCAL STORAGE <===
+      const updatedBasket = [...basket];
+      const updatedCount =  updatedBasket[existingProductIndex].productCount += 1;
+      setBasket(updatedBasket,updatedCount);
+       localStorage.setItem("basket",JSON.stringify(basket))
+    }
+    // ===> IF THE PRODUCT IS NEW THAN ADDED TO YOUR CARD <===
+     else {
+      const updatedBasket = [
+        ...basket,
+        {
+          productId: id,
+          productCount: 1,
+          productTitle: title,
+          productImages: images,
+          productPrice: price,
+        },
+      ];
+      
+// ===>IF THE USER IS LOGGED IN THAN POST THE PRODUCT TO THE SERVER <===
+      if (isLoggedIn) {
+        setBasket(updatedBasket);
+        SET_PRODUCT_TO_BASKET({ basket: updatedBasket })
+          .then(({ data }) => {
+            setBasket(data);
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } 
+      // ===> ELSE POST IT TO THE LOCALE STORAGE <===
+      else {
+        setBasket(updatedBasket);
+        localStorage.setItem("basket", JSON.stringify(updatedBasket));
+        toast.success(`${title} was added to your Card!`, {
+          position: "top-center",
+          autoClose: 3000,
+          draggable: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  };
+***********************************************************************************************************************************************************
+BASKET PAGE
+ 
+  const BasketPage = () => {
+  const [basket, setBasket] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const GET_BASKET_DATA_FROM_STORAGE = () => {
+    let basketData = JSON.parse(localStorage.getItem("basket"));
+    setBasket(basketData);
+    //console.log(basketData)
+  };
+
+  useEffect(() => {
+    GET_BASKET_DATA_FROM_STORAGE();
+  }, []);
+
+  // ===> CALCULATE THE TOTAL PRODUCT PRICE <===
+  const calculateTotal = () => {
+    let total = 0;
+    basket.forEach((item) => {
+      total += item.productPrice * item.productCount;
+    });
+    setTotalPrice(total);
+    localStorage.setItem("totalPrice", total);
+  };
+
+  useEffect(() => {
+    calculateTotal();
+  }, [basket]);
+
+  // ===> DELETE PRODUCT FROM STORAGE <===
+  const deleteItem = async (id, title) => {
+    let deletedItemFromStorage = await JSON.parse(
+      localStorage.getItem("basket")
+    );
+    const updatedBasket = deletedItemFromStorage.filter(
+      (item) => item.productId !== id
+    );
+    localStorage.setItem("basket", JSON.stringify(updatedBasket));
+    setBasket(updatedBasket);
+    toast.error(`${title} was deleted from card !`, {
+      position: "top-center",
+      autoClose: 3000,
+      draggable: true,
+      pauseOnHover: true,
+    });
+  };
+  // ===> INCREASE THE PRODUCT COUNT <===
+  const increaseProduct = (id) => {
+    const updatedBasket = basket && basket.map((item) => {
+      if (item.productId === id) {
+        return { ...item, productCount: item.productCount + 1 };
+      }
+      return item;
+    });
+    setBasket(updatedBasket);
+    localStorage.setItem("basket", JSON.stringify(updatedBasket));
+    calculateTotal(); // CALL THE CALCULATE METHOD BECAUSE I INCREASE THE COUNT SO THE COUNT CHANGE DINAMIC AND THAT EFFECT ON THE PRICE
+  };
+
+  // ===> DECREASE THE PRODUCT COUNT <===
+  const decreaseProduct = (id) => {
+    const updatedBasket = basket.map((item) => {
+      if (item.productId === id && item.productCount >= 1) {
+        return { ...item, productCount: item.productCount - 1 };
+      }
+      return item;
+    });
+    setBasket(updatedBasket);
+    localStorage.setItem("basket", JSON.stringify(updatedBasket));
+    calculateTotal(); // CALL THE CALCULATE METHOD BECAUSE I DECREASE THE COUNT SO THE COUNT CHANGE DINAMIC AND THAT EFFECT ON THE PRICE
+  };
+***********************************************************************************************************************************************************
+Header Componet 
+ //  ===> CHECK THE LAST COUNT FROM STORAGE AND SHOW IT ON THE HEADER <===
+  useEffect(() => {
+    let basket = localStorage.getItem("basket");
+    let parsedData = JSON.parse(basket);
+    setBasket(parsedData);
+  }, []);

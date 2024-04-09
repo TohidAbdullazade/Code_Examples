@@ -1,0 +1,8 @@
+
+.container:has(.box:hover) .box {
+    opacity: 1;
+}
+
+.container .box:hover~.box {
+    opacity: .4;
+}

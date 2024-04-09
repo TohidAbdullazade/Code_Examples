@@ -1,0 +1,13 @@
+let OutsideFn = () => {
+  let message = "I am Outside Function";
+  let message2 = "I am Inner FN";
+
+  let InnerFn = () => {
+    console.log(message);
+    console.log(message2);
+  };
+  return InnerFn;
+};
+
+let cvb = OutsideFn();
+cvb();

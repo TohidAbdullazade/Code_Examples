@@ -1,0 +1,18 @@
+function hello(bye) {
+  setTimeout(() => {
+    alert("Hellio");
+    bye();
+  }, 2000);
+}
+
+function bye() {
+  setTimeout( ()=>console.log('Bye'),500 )
+}
+hello(bye);
+
+// Call Back Yeni hansi metodu Evvel islemisini isteyirsense, 
+ondan sonra gelen metodu 1 ci metoda arqument kimi otur 
+ve onu 1 ci metodun parametr moterezelerinde onu arqument kimi al 
+ve sonra 1 ci metodun icinde cagir bu yalnuz 2 side asyncron olduqlari teqdirde mumkundur
+
+// output alert('Hellio') 500ms sonra ise console.log('bye')

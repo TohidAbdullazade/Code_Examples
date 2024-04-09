@@ -1,0 +1,15 @@
+﻿1. Mobil Telefonlar
+Kiçik Mobil Telefonlar: 320px genişlik və daha kiçik (320px x 480px tipikdir)
+Orta Mobil Telefonlar: 375px genişlik (iPhone 6/7/8 kimi)
+Böyük Mobil Telefonlar: 414px genişlik (iPhone 6/7/8 Plus kimi)
+
+2. Tablet
+Kiçik Tablet: 768px genişlik (iPad kimi)
+Böyük Tablet: 1024px genişlik (Bəzi Android tabletlər və iPad Pro kimi)
+
+3. Noutbuk və Masaüstü
+Kiçik Ekranlar: 1366px genişlik (kiçik noutbuklar)
+Orta Ekranlar: 1440px - 1600px genişlik (orta ölçülü noutbuklar və bəzi masaüstü monitörler)
+Böyük Ekranlar: 1920px və daha geniş (böyük noutbuklar və masaüstü monitörler)
+4. Çox Böyük Ekranlar
+Çox Böyük Ekranlar: 2560px və daha geniş (yüksek çözünürlüklü monitörler)

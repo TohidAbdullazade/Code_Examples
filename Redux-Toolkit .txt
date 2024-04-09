@@ -1,0 +1,75 @@
+ 1. npm install @reduxjs/toolkit react-redux;
+2. src/app/store.js fayli yaradilir;
+3. store.js de bu qeydler olur : 
+
+import {configureStore} from '@reduxjs/toolkit';
+import  counterReducer  from '../features/counter/CounterSlice'; (bu import CounterSlice.js fayli yaradilandan sonra olacaq )
+
+export default configureStore({
+    reducer :{
+    counter: counterReducer       
+    }
+});
+
+4. Main.js de Provider sarilir App.js : 
+
+import { Provider } from "react-redux";
+import Store from "./app/Store.js";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <Provider store={Store}>
+    <App />
+  </Provider>
+); 
+
+5. features/yazacagin projecte uygun qovlug adi  secirsen ve onun adi  ile Slice.js fayli yaradilir mes: count; (features/count/counterSlice.js)
+6. counterSlice.js olan qeydler : 
+
+import { createSlice } from "@reduxjs/toolkit";
+
+export const counterSlice = createSlice({
+  name: "counter",
+  initialState: {
+    value: 0,
+  },
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    custom: (state, action) => {
+      state.value += action.payload;
+    },
+  },
+});
+
+export const { increment, decrement,custom } = counterSlice.actions;
+export default counterSlice.reducer;
+
+axirda istade ye gelek : 
+
+7.istenilen komponentde istifade ede bilersen 
+
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { custom, decrement, increment } from "../features/counter/CounterSlice";
+
+const Home = () => {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    <div>
+      {count} <br />
+      <button onClick={() => dispatch(increment())}>Max</button>
+      <br />
+      <button onClick={() => dispatch(decrement())}>MIn</button>
+      <br />
+      <button onClick={() => dispatch(custom())}>Custum</button>
+    </div>
+  );
+};
+
+export default Home;

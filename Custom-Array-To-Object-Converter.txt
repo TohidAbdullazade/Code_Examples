@@ -1,0 +1,6 @@
+let arr  = [1,2,3,4,5,"a","b","c",{name:[1,2,3,4,5]}];
+
+let obj = arr.reduce((acc,curr,i)=>({
+    ...acc,[i]:curr
+}),{});
+console.log(obj);
