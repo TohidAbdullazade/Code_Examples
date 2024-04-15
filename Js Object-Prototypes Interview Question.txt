@@ -1,0 +1,4 @@
+// b ele bir object yaradin ki onun icinde __proto__ olmasin?
+
+let nonProtoObject = Object.create(null);
+console.log(nonProtoObject.__proto__);
