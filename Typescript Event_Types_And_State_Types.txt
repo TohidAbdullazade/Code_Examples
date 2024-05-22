@@ -1,0 +1,28 @@
+Umumi Izah budur ki, adətən React.(Event-ın ad)və handler sözü ilə bitir Handler sözün sil Eventın adın saxla
+1. Onchange Event Type: e:React.ChangeEvent<HTMLInputElement>; <==> e:React.ChangeEventHandler<HTMLInputElement>
+hover ediləndə belə gəldi type özü amma Handler sözünü silirsən və type qeyd edirsən
+
+2. OnClick Event Type : e:React.MouseEvent<HTMLDivElement>;
+3. OnSubmit Event Type: e.React.FormEvent<HTMLFormElement>;
+
+Types for useState  
+
+const [count, setCount] = useState<number | string>(0); // Union Type 
+ 
+ const [user, setUser] = useState<IUserProps>({
+    name: "",
+    age: 0,
+  });
+
+setState-in tipi:React.Dispatch<React.SetStateAction<string>>
+
+The Types come from interface file 
+export IUserProps {
+name:string,
+age:number,
+address?:{
+city:string,
+phone:number	
+}
+
+}

@@ -1,0 +1,39 @@
+import {
+  createContext,
+  ReactNode,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useContext,
+} from "react";
+
+interface ContextInterface {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+}
+interface ChildInterface {
+  children: ReactNode;
+}
+
+const TodoContext = createContext<ContextInterface>({
+  value: "",
+  setValue: (value) => value,
+});
+
+export const TodoContextProvider = ({ children }: ChildInterface) => {
+  const [value, setValue] = useState<string>("");
+  return (
+    <TodoContext.Provider value={{ value, setValue }}>
+      {children}
+    </TodoContext.Provider>
+  );
+};
+
+// ===> Custom hook to use the TodoContext <===
+export const useTodo = (): ContextInterface => {
+    const context = useContext(TodoContext);
+    if (context === undefined) {
+      throw new Error("useTodo must be used within a TodoContextProvider");
+    }
+    return context;
+  };

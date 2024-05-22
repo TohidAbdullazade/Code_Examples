@@ -3486,6 +3486,10 @@
     margin-top: 16px;
     margin-bottom: 16px;
 }
+.my-5 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 .my-6 {
     margin-top: 24px;
@@ -4095,6 +4099,10 @@
 .top-4 {
     position: absolute;
     top: 16px;
+}
+.top-5 {
+    position: absolute;
+    top: 20px;
 }
 
 .top-6 {
