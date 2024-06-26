@@ -1,0 +1,50 @@
+import React, { useRef } from "react";
+import WithUserList from "./components/WithUserList";
+
+// Parent Component
+const App = () => {
+  const countRef = useRef(null);
+  return (
+    <div>
+      <WithUserList ref={countRef} />
+      <button onClick={()=>countRef.current.increaseCount()}>Max</button>
+      <button onClick={()=>countRef.current.decreaseCount()}>Min</button>
+    </div>
+  );
+};
+
+export default App;
+
+// Child Component 
+
+import React, { useState, forwardRef, useImperativeHandle } from "react";
+
+const WithUserList = forwardRef((props, countRef) => {
+  const [count, setCount] = useState(0);
+
+  const increaseCount = () => {
+    setCount((prev) => prev + 1);
+  };
+  const decreaseCount = () => {
+    setCount((prev) => prev + -1);
+  };
+
+  useImperativeHandle(
+    countRef,
+    () => {
+      return {
+        increaseCount: () => increaseCount(),
+        decreaseCount: () => decreaseCount(),
+       
+      };
+    },
+    [count]
+  );
+  return (
+    <div>
+      <p>{count}</p>
+    </div>
+  );
+});
+
+export default WithUserList;

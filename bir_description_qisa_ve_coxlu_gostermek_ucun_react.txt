@@ -1,0 +1,29 @@
+import React, { useState } from "react";
+import { Card as AntdCard, Image } from "antd";
+
+const Card = ({ id, product, loading }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
+
+  return (
+    <AntdCard
+      hoverable
+      className="w-[21.875rem] h-full"
+      title={product.title}
+      loading={loading}
+      cover={<Image src={product.image} />}
+    >
+      <p>
+        {expanded ? product.description : product.description.slice(0, 120)}{"  "}
+        <strong onClick={handleToggle}>
+          {expanded ? "less" : "more"}
+        </strong>
+      </p>
+    </AntdCard>
+  );
+};
+
+export default Card;

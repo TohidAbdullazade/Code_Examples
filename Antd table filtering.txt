@@ -17,7 +17,7 @@
               },
               {
                 title: "Name",
-                dataIndex: "name",
+                dataIndex: "name",	
                 filterDropdown: ({
                   setSelectedKeys,
                   selectedKeys,

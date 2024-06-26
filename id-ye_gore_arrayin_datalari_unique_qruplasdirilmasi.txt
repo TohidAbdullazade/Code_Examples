@@ -1,0 +1,10 @@
+const groupedProducts = product.reduce(
+    (acc: { [key: string]: ProductInterface }, item) => {
+      if (item.id !== undefined && !acc[item.id]) {
+        acc[item.id] = item;
+      }
+      return acc;
+    },
+    {}
+  );
+  const uniqueProducts = Object.values(groupedProducts);
