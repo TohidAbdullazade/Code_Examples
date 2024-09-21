@@ -1,0 +1,12 @@
+const handleEdit = (values: IForm, id: string) => {
+    setUpdateModal(true);
+    const currentCLass = values.classes.map((cl: IClass) => cl.id);
+    const currentprof = values.profession.id;
+    form.setFieldsValue({
+      ...values,
+      classes: currentCLass,
+      professions: currentprof,
+    });
+    setId(id);
+    console.log(currentCLass);
+  };

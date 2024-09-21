@@ -1,0 +1,29 @@
+ <Form.Item
+                                    labelCol={{span: 24}}
+                                    label="Phone"
+                                    name="phone"
+                                    rules={[
+                                        {required: true, message: 'Please enter your phone number'},
+                                        {whitespace: true},
+                                        {min: 3, message: 'Phone number must be at least 3 characters long'}
+                                    ]}
+                                    hasFeedback
+                                >
+                                    <Input
+                                        name="phone"
+                                        placeholder="Enter your phone number please..."
+                                        className="w-[450px]"
+                                        inputMode="numeric"
+                                        pattern="[0-9]*"
+                                        onKeyPress={(event) => {
+                                            if (!/[0-9]/.test(event.key)) {
+                                                if (!errorShown) {
+                                                    message.error("You can't type characters in the phone input", 2);
+                                                    setErrorShown(true);
+                                                }
+                                                event.preventDefault();
+                                            }
+                                        }}
+                                        onBlur={() => setErrorShown(false)}
+                                    />
+                                </Form.Item>

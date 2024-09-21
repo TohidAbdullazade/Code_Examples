@@ -1,0 +1,35 @@
+1) npm install @react-native-async-storage/async-storage
+
+2) Make a AsyncStore 
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Token opslaan
+const saveToken = async (token) => {
+  try {
+    await AsyncStorage.setItem('userToken', token);
+  } catch (error) {
+    console.error('Fout bij het opslaan van de token', error);
+  }
+};
+
+3) Get the Token from Store 
+
+const getToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem('userToken');
+    return token ? token : null;
+  } catch (error) {
+    console.error('Fout bij het ophalen van de token', error);
+  }
+};
+
+4) Remove a token from Store
+
+const removeToken = async () => {
+  try {
+    await AsyncStorage.removeItem('userToken');
+  } catch (error) {
+    console.error('Fout bij het verwijderen van de token', error);
+  }
+};

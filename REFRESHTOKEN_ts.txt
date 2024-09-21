@@ -1,0 +1,44 @@
+API.interceptors.request.use(
+    async (config) => {
+        const accessToken = Cookies.get('accessToken');
+        if (accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+API.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            const refreshToken = Cookies.get('refreshToken');
+
+            if (refreshToken) {
+                try {
+                    const response = await API.post('/refresh', { refreshToken });
+                    const { accessToken, refreshToken: newRefreshToken } = response.data;
+
+                    Cookies.set('accessToken', accessToken);
+                    Cookies.set('refreshToken', newRefreshToken);
+
+                    API.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+                    originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+
+                    return API(originalRequest);
+                } catch (refreshError) {
+                    console.error('Refresh token expired or invalid', refreshError);
+                }
+            }
+        }
+
+        return Promise.reject(error);
+    }
+);

@@ -1,0 +1,10 @@
+// Validator function to check for whitespace at the start of the input
+   
+ const noWhitespaceStart = () => ({
+        validator(_: RuleObject, value: string) {
+            if (value && value.trimStart().length !== value.length) {
+                return Promise.reject(new Error('The field cannot start with a whitespace'));
+            }
+            return Promise.resolve();
+        }
+    });
