@@ -1,0 +1,20 @@
+Axios Interceptor has 2 params: config for the request and error for the response
+
+Config:
+1.url for the url
+2. method for whict HTTP method it is
+3.headers (accept type and Authorization);
+4.params for query
+5.data for data
+6.timeout for the time
+
+Response:
+1.mesage for the error message
+2.status for whict HTTP method it is
+3.headers (accept type and Authorization);
+5.data for data
+6.config 
+
+
+
+

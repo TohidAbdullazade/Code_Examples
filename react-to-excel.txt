@@ -1,0 +1,29 @@
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+
+const ExportExcel = () => {
+  const exportToExcel = () => {
+    // Dummy data
+    const data = [
+      { ad: "Tohid", yas: 25, seher: "Bakı" },
+      { ad: "Leyla", yas: 28, seher: "Gəncə" },
+    ];
+
+    // Sheet yaratmaq
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Məlumatlar");
+
+    // Excel faylını yaratmaq
+    const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    const dataBlob = new Blob([excelBuffer], { type: "application/octet-stream" });
+
+    // Yükləmə
+    saveAs(dataBlob, "data.xlsx");
+  };
+
+  return <button onClick={exportToExcel}>Excelə Export</button>;
+};
+
+export default ExportExcel;
+
